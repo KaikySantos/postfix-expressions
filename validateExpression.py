@@ -16,7 +16,7 @@ def validateExpression(expression):
     print("Inválido: Valor(es) incorretos")
     return False
 
-  # Validation first two numbers of expression
+  # Validation first two numbers of expression are numbers
   if (not(expressionSplited[0].isnumeric() and expressionSplited[1].isnumeric())):
     print("Inválido: Dois primeiros dígitos precisam ser números")
     return False
