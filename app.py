@@ -1,3 +1,5 @@
+from validateExpression import *
+
 expression = input("Digite a expressão em notação posfixa: ")
 
-print(expression)
+validateExpression(expression)
