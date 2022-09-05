@@ -22,18 +22,8 @@ def calculateResult(expression):
       stack.pop()
       stack.pop()
 
-      print("----- Desempilhando: ", value1, value2)
-      print("Pilha atual: ", stack)
-
-      print("----- Operando: ", value1, value, value2)
-
       stack.append(newValue)
-
-      print("----- Empilhando: ", newValue)
-      print("Pilha atual: ", stack)
     else:
       stack.append(float(value))
-      print("----- Empilhando: ", float(value))
-      print("Pilha atual: ", stack)
 
   return stack[0]
