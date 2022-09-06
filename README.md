@@ -1,5 +1,5 @@
 # Solve postfix expressions 🧮
-Receives a fixed postfix expression and returns the result!
+Receives a postfix expression and returns the result!
 
 I made this program for the college data structure discipline.
 
