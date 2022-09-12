@@ -1,3 +1,4 @@
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -28,9 +29,9 @@ int stackIsFull(Stack *stack) {
   }
 }
 
-void push(Stack *stack, int newValue) {
+void push(Stack *stack, float newValue) {
   if (stackIsFull(stack) == 1) {
-    printf("ERROR: Stack is full!");
+    printf("ERROR: Stack is full! \n");
   } else {
     stack->top++;
     stack->data[stack->top] = newValue;
@@ -38,10 +39,10 @@ void push(Stack *stack, int newValue) {
 }
 
 float pop(Stack *stack) {
-  int aux;
+  float aux;
 
   if (stackIsEmpty(stack) == 1) {
-    printf("ERROR: Stack is empty!");
+    printf("ERROR: Stack is empty! \n");
   } else {
     aux = stack->data[stack->top];
     stack->top--;
@@ -49,11 +50,51 @@ float pop(Stack *stack) {
   }
 }
 
+int valueIsOperator(char value[]) {
+  return (!strcmp(value, "+") || !strcmp(value, "-") || !strcmp(value, "*") || !strcmp(value, "/"));
+}
+
+float operation(float n1, float n2, char operator[]) {
+  if (!strcmp(operator, "+")) {
+    return n2 + n1;
+  } else if (!strcmp(operator, "-")) {
+    return n2 - n1;
+  } else if (!strcmp(operator, "*")) {
+    return n2 * n1;
+  } else if (!strcmp(operator, "/")) {
+    return n2 / n1;
+  }
+}
+
+float solveExpression(Stack *stack, char exp[]) {
+  char *value = strtok(exp, " ");
+
+  while (value) {
+      if (valueIsOperator(value)) {
+        float n1 = pop(stack);
+        float n2 = pop(stack);
+        float result = operation(n1, n2, value);
+
+        push(stack, result);
+      } else {
+        push(stack, atof(value));
+      }
+
+      value = strtok(NULL, " ");
+  }
+
+  return stack->data[0];
+}
+
 int main(int argc, char const *argv[]) {
   char expression[] = {"5 3 2 + * 4 / 6 -"};
 
+  printf("Resolvendo: %s \n", expression);
+
   Stack *stack = (Stack*)malloc(sizeof(Stack));
   startStack(stack);
+
+  printf("Resultado: %f \n", solveExpression(stack, expression));
 
   return 0;
 }
