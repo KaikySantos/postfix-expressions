@@ -8,6 +8,10 @@ typedef struct {
   float data[MAXTAM];
 } Stack;
 
+void startStack(Stack *stack) {
+  stack->top = -1;
+}
+
 int stackIsEmpty(Stack *stack) {
   if (stack->top == -1) {
     return 1;
@@ -48,8 +52,8 @@ float pop(Stack *stack) {
 int main(int argc, char const *argv[]) {
   char expression[] = {"5 3 2 + * 4 / 6 -"};
 
-  Stack stack;
-  stack.top = -1;
+  Stack *stack = (Stack*)malloc(sizeof(Stack));
+  startStack(stack);
 
   return 0;
 }
