@@ -8,6 +8,14 @@ typedef struct {
   float data[MAXTAM];
 } Stack;
 
+int stackIsEmpty(Stack *stack) {
+  if (stack->top == -1) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
 int stackIsFull(Stack *stack) {
   if (stack->top == MAXTAM - 1) {
     return 1;
@@ -22,6 +30,18 @@ void push(Stack *stack, int newValue) {
   } else {
     stack->top++;
     stack->data[stack->top] = newValue;
+  }
+}
+
+float pop(Stack *stack) {
+  int aux;
+
+  if (stackIsEmpty(stack) == 1) {
+    printf("ERROR: Stack is empty!");
+  } else {
+    aux = stack->data[stack->top];
+    stack->top--;
+    return aux;
   }
 }
 
