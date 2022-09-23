@@ -30,12 +30,8 @@ int stackIsFull(Stack *stack) {
 }
 
 void push(Stack *stack, float newValue) {
-  if (stackIsFull(stack) == 1) {
-    printf("ERROR: Stack is full! \n");
-  } else {
-    stack->top++;
-    stack->data[stack->top] = newValue;
-  }
+  stack->top++;
+  stack->data[stack->top] = newValue;
 }
 
 float pop(Stack *stack) {
@@ -66,35 +62,62 @@ float operation(float n1, float n2, char operator[]) {
   }
 }
 
-float solveExpression(Stack *stack, char exp[]) {
+void solveExpression(Stack *stack, char exp[]) {
   char *value = strtok(exp, " ");
 
   while (value) {
       if (valueIsOperator(value)) {
-        float n1 = pop(stack);
-        float n2 = pop(stack);
+        float n1, n2;
+
+        if (stackIsEmpty(stack) == 1) {
+          printf("ERROR: Invalid expression! \n");
+          return 0;
+        } else {
+          n1 = pop(stack);
+
+          if (stackIsEmpty(stack) == 1) {
+            printf("ERROR: Invalid expression! \n");
+            return 0;
+          } else {
+            n2 = pop(stack);
+          }
+        }
+
         float result = operation(n1, n2, value);
 
-        push(stack, result);
+        if (stackIsFull(stack) == 1) {
+          printf("ERROR: Stack is full! \n");
+          return 0;
+        } else {
+          push(stack, result);
+        }
       } else {
-        push(stack, atof(value));
+        if (stackIsFull(stack) == 1) {
+          printf("ERROR: Stack is full! \n");
+          return 0;
+        } else {
+          push(stack, atof(value));
+        }
       }
 
       value = strtok(NULL, " ");
   }
 
-  return stack->data[0];
+  printf("Topo: %d \n", stack->top);
+
+  printf("Resultado: %f \n", stack->data[0]);
 }
 
 int main(int argc, char const *argv[]) {
-  char expression[] = {"5 3 2 + * 4 / 6 -"};
+  // char expression[] = {"5 3 2 + * 4 / 6 -"};
+  char expression[] = {"5 + 2"};
 
   printf("Resolvendo: %s \n", expression);
 
   Stack *stack = (Stack*)malloc(sizeof(Stack));
   startStack(stack);
 
-  printf("Resultado: %f \n", solveExpression(stack, expression));
+  solveExpression(stack, expression);
 
   return 0;
 }
