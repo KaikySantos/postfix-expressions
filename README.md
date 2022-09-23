@@ -1,26 +1,7 @@
-# Solve postfix expressions 🧮
+# 🧮 Solve postfix expressions
 Receives a postfix expression and returns the result!
 
-I made this program for the college data structure discipline.
-
-
-# :construction_worker: How work ?
-```bash
-# It is necessary to have python installed on your computer
-
-# Clone this repository
-$ git clone https://github.com/KaikySantos/postfix-expressions.git
-
-# Access the project folder
-$ cd postfix-expressions
-
-# Run the application
-$ python app.py
-
-# Working example:
-$ Digite a expressão em notação posfixa: 5 3 2 + * 4 / 6 -
-$ Resultado: 0.25
-```
+I made this program for the college <b>data structure</b> discipline.
 
 <hr/>
 
